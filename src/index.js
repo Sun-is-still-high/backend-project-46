@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import _ from 'lodash';
 
 const readFile = (filepath) => {
   const absolutePath = path.resolve(process.cwd(), filepath);
@@ -22,8 +23,27 @@ const genDiff = (filepath1, filepath2) => {
   const data1 = parseData(content1, filepath1);
   const data2 = parseData(content2, filepath2);
 
-  // TODO: implement diff generation
-  return '';
+  const keys1 = Object.keys(data1);
+  const keys2 = Object.keys(data2);
+  const allKeys = _.sortBy(_.union(keys1, keys2));
+
+  const lines = allKeys.map((key) => {
+    const hasInData1 = _.has(data1, key);
+    const hasInData2 = _.has(data2, key);
+
+    if (!hasInData1) {
+      return `  + ${key}: ${data2[key]}`;
+    }
+    if (!hasInData2) {
+      return `  - ${key}: ${data1[key]}`;
+    }
+    if (data1[key] === data2[key]) {
+      return `    ${key}: ${data1[key]}`;
+    }
+    return `  - ${key}: ${data1[key]}\n  + ${key}: ${data2[key]}`;
+  });
+
+  return `{\n${lines.join('\n')}\n}`;
 };
 
 export default genDiff;
