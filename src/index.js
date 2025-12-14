@@ -4,13 +4,13 @@ import _ from 'lodash'
 import parseData from './parsers.js'
 import format from './formatters/index.js'
 
-const readFile = filepath => {
+const readFile = (filepath) => {
   const absolutePath = path.resolve(process.cwd(), filepath)
   const content = fs.readFileSync(absolutePath, 'utf-8')
   return content
 }
 
-const getFormat = filepath => {
+const getFormat = (filepath) => {
   const ext = path.extname(filepath).slice(1)
   return ext
 }
@@ -20,7 +20,7 @@ const buildDiffTree = (data1, data2) => {
   const keys2 = Object.keys(data2)
   const allKeys = _.sortBy(_.union(keys1, keys2))
 
-  return allKeys.map(key => {
+  return allKeys.map((key) => {
     const value1 = data1[key]
     const value2 = data2[key]
     const hasKey1 = _.has(data1, key)

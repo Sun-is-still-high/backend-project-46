@@ -12,11 +12,11 @@ const stringify = (value, depth) => {
   return ` {\n${lines.join('\n')}\n${bracketIndent}}`
 }
 
-const formatStylish = tree => {
+const formatStylish = (tree) => {
   const iter = (node, depth) => {
     const indent = '    '.repeat(depth)
 
-    const lines = node.map(item => {
+    const lines = node.map((item) => {
       const {
         key, type, value, oldValue, newValue, children,
       } = item

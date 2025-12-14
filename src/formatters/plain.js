@@ -1,6 +1,6 @@
 import _ from 'lodash'
 
-const formatValue = value => {
+const formatValue = (value) => {
   if (_.isObject(value)) {
     return '[complex value]'
   }
@@ -10,10 +10,10 @@ const formatValue = value => {
   return String(value)
 }
 
-const formatPlain = tree => {
+const formatPlain = (tree) => {
   const iter = (node, path) => {
     const lines = node
-      .map(item => {
+      .map((item) => {
         const {
           key, type, value, oldValue, newValue, children,
         } = item
