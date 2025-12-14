@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import _ from 'lodash';
+import parseData from './parsers.js';
 
 const readFile = (filepath) => {
   const absolutePath = path.resolve(process.cwd(), filepath);
@@ -8,20 +9,20 @@ const readFile = (filepath) => {
   return content;
 };
 
-const parseData = (content, filepath) => {
-  const ext = path.extname(filepath);
-  if (ext === '.json') {
-    return JSON.parse(content);
-  }
-  throw new Error(`Unsupported file format: ${ext}`);
+const getFormat = (filepath) => {
+  const ext = path.extname(filepath).slice(1);
+  return ext;
 };
 
 const genDiff = (filepath1, filepath2) => {
   const content1 = readFile(filepath1);
   const content2 = readFile(filepath2);
 
-  const data1 = parseData(content1, filepath1);
-  const data2 = parseData(content2, filepath2);
+  const format1 = getFormat(filepath1);
+  const format2 = getFormat(filepath2);
+
+  const data1 = parseData(content1, format1);
+  const data2 = parseData(content2, format2);
 
   const keys1 = Object.keys(data1);
   const keys2 = Object.keys(data2);

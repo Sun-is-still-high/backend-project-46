@@ -6,6 +6,8 @@
 
 Утилита для поиска различий в конфигурационных файлах.
 
+Поддерживает форматы: JSON, YAML
+
 ### Установка
 
 ```bash
@@ -19,10 +21,18 @@ npm link
 gendiff <filepath1> <filepath2>
 ```
 
-### Пример
+### Примеры
+
+#### Сравнение JSON файлов
 
 ```bash
 gendiff file1.json file2.json
+```
+
+#### Сравнение YAML файлов
+
+```bash
+gendiff file1.yml file2.yml
 ```
 
 Вывод:
