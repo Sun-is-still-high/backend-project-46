@@ -2,8 +2,7 @@ import _ from 'lodash';
 
 const stringify = (value, depth) => {
   if (!_.isObject(value)) {
-    const str = String(value);
-    return str === '' ? str : ` ${str}`;
+    return ` ${value}`;
   }
 
   const indent = '    '.repeat(depth + 2);
