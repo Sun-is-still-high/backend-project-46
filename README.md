@@ -1,5 +1,6 @@
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/Sun-is-still-high/backend-project-46/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/Sun-is-still-high/backend-project-46/actions)
+[![Node.js CI](https://github.com/Sun-is-still-high/backend-project-46/actions/workflows/nodejs-ci.yml/badge.svg)](https://github.com/Sun-is-still-high/backend-project-46/actions/workflows/nodejs-ci.yml)
 
 ## Gendiff
 
