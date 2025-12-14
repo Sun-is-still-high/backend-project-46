@@ -16,7 +16,6 @@ const stringify = (value, depth) => {
 const formatStylish = (tree) => {
   const iter = (node, depth) => {
     const indent = '    '.repeat(depth);
-    const bracketIndent = '    '.repeat(depth);
 
     const lines = node.map((item) => {
       const {
