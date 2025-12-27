@@ -26,6 +26,6 @@ describe('genDiff', () => {
       const expected = readFile(expectedFile)
 
       expect(genDiff(filepath1, filepath2, format)).toBe(expected)
-    }
+    },
   )
 })
