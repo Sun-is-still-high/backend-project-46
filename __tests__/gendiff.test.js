@@ -10,43 +10,22 @@ const getFixturePath = filename => path.join(__dirname, '..', '__fixtures__', fi
 const readFile = filename => fs.readFileSync(getFixturePath(filename), 'utf-8')
 
 describe('genDiff', () => {
-  test('compare flat JSON files', () => {
-    const filepath1 = getFixturePath('file1.json')
-    const filepath2 = getFixturePath('file2.json')
-    const expected = readFile('expected_stylish.txt')
+  const testCases = [
+    ['flat JSON files', 'file1.json', 'file2.json', 'stylish', 'expected_stylish.txt'],
+    ['flat YAML files', 'file1.yml', 'file2.yml', 'stylish', 'expected_stylish.txt'],
+    ['nested JSON files', 'file1_nested.json', 'file2_nested.json', 'stylish', 'expected_stylish_nested.txt'],
+    ['nested JSON files with plain format', 'file1_nested.json', 'file2_nested.json', 'plain', 'expected_plain.txt'],
+    ['nested JSON files with json format', 'file1_nested.json', 'file2_nested.json', 'json', 'expected_json.txt'],
+  ]
 
-    expect(genDiff(filepath1, filepath2)).toBe(expected)
-  })
+  test.each(testCases)(
+    'compare %s',
+    (_, file1, file2, format, expectedFile) => {
+      const filepath1 = getFixturePath(file1)
+      const filepath2 = getFixturePath(file2)
+      const expected = readFile(expectedFile)
 
-  test('compare flat YAML files', () => {
-    const filepath1 = getFixturePath('file1.yml')
-    const filepath2 = getFixturePath('file2.yml')
-    const expected = readFile('expected_stylish.txt')
-
-    expect(genDiff(filepath1, filepath2)).toBe(expected)
-  })
-
-  test('compare nested JSON files', () => {
-    const filepath1 = getFixturePath('file1_nested.json')
-    const filepath2 = getFixturePath('file2_nested.json')
-    const expected = readFile('expected_stylish_nested.txt')
-
-    expect(genDiff(filepath1, filepath2)).toBe(expected)
-  })
-
-  test('compare nested JSON files with plain format', () => {
-    const filepath1 = getFixturePath('file1_nested.json')
-    const filepath2 = getFixturePath('file2_nested.json')
-    const expected = readFile('expected_plain.txt')
-
-    expect(genDiff(filepath1, filepath2, 'plain')).toBe(expected)
-  })
-
-  test('compare nested JSON files with json format', () => {
-    const filepath1 = getFixturePath('file1_nested.json')
-    const filepath2 = getFixturePath('file2_nested.json')
-    const expected = readFile('expected_json.txt')
-
-    expect(genDiff(filepath1, filepath2, 'json')).toBe(expected)
-  })
+      expect(genDiff(filepath1, filepath2, format)).toBe(expected)
+    }
+  )
 })
